@@ -15,11 +15,14 @@ RSpec.configure do |config|
   config.before :all do
     CreateAllTables.up unless ActiveRecord::Base.connection.table_exists? 'authors'
 
-    Author.create! name: 'matz', email: 'matz@ruby-lang.org'
-    Author.create! name: 'keiju'
+    matz = Author.create!(name: 'matz', email: 'matz@ruby-lang.org')
+    keiju = Author.create!(name: 'keiju')
     Author.create! name: 'takahashim'
     Author.create! name: 'aamine'
     Author.create! name: 'nari'
+
+    matz.books.create!(price: 5000)
+    keiju.books.create!(price: 1000)
   end
 
 #   config.order = 'random'

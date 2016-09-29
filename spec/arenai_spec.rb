@@ -63,4 +63,8 @@ describe Arenai do
     assert { Author.where.not(name: 'takahashim').to_a.map(&:name) == %w(matz keiju aamine nari) }
     assert { Author.where.not(name: 'takahashim').count == 4 }
   end
+
+  specify '#merge' do
+    assert { Author.joins(:books).merge(Book.where('price > 4000')).to_a.map(&:name) == %w(matz) }
+  end
 end
